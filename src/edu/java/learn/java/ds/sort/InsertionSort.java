@@ -114,7 +114,27 @@ public class InsertionSort {
 	
 	public void removeNode(int value)
 	{
-		
+		IntegerNode ptrNode=HEAD.next;
+		boolean nodeDeleted=false;
+		while(ptrNode.next!=TAIL)
+		{
+			if(ptrNode.getValue()==value)
+			{
+				IntegerNode prevNode=ptrNode.prev;
+				IntegerNode nextNode=ptrNode.next;
+				prevNode.next=ptrNode.next;
+				nextNode.prev=prevNode;
+				nodeDeleted=true;
+				break;
+			}
+			ptrNode=ptrNode.next;
+		}
+		if(nodeDeleted) {
+			System.out.println("Node sucessfully deleted ");
+		}
+		else {
+			System.out.println("Node node found ");
+		}
 	}
 	
 	public static void main(String ...args)
@@ -127,6 +147,11 @@ public class InsertionSort {
 		is.addNode(70);
 		is.addNode(35);
 		is.addNode(30);
+		is.printList();
+		is.printReverseList();
+		
+		is.removeNode(41);
+		
 		is.printList();
 		is.printReverseList();
 	}
