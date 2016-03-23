@@ -26,6 +26,24 @@ public class DoublyLinkedList {
 		tail.left=n;
 	}
 	
+	public void removeNode(int val)
+	{
+		Node ptr=head.right;
+		while(ptr.value!=val && ptr!=tail)
+		{
+			ptr=ptr.right;
+		}
+		if(ptr==tail)
+		{
+			System.out.println("Node not found ");
+			return;
+		}
+		ptr.left.right=ptr.right;
+		ptr.right.left=ptr.left;
+		ptr=null;
+	}
+	
+	
 	public void traverseForward() 
 	{
 		if(head==null)
@@ -79,7 +97,9 @@ public class DoublyLinkedList {
 		
 		dll.traverseForward();
 		dll.traverseBackward();
-		
+		dll.removeNode(70);
+		dll.traverseForward();
+		dll.traverseBackward();
 	}
 	
 }
