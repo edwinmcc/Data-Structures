@@ -1,5 +1,8 @@
 package edu.learn.java.jdk8;
 
+import edu.learn.java.ds.common.Person;
+import edu.learn.java.ds.common.Sex;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,60 +19,6 @@ import java.util.List;
 @FunctionalInterface
 interface Predicate<T> {
     boolean test(T t);
-}
-
-enum Sex {
-    FEMALE {
-        public String getSex() {
-            return "F";
-        }
-    },
-    MALE {
-        public String getSex() {
-            return "M";
-        }
-    };
-
-    abstract String getSex();
-
-}
-
-class Person {
-
-    private String name;
-    private int    age;
-    private Sex    sex;
-
-    public Person(String name, int age, Sex sex) {
-        this.name=name;
-        this.age=age;
-        this.sex=sex;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public Sex getSex() {
-        return sex;
-    }
-
-    public void setSex(Sex sex) {
-        this.sex = sex;
-    }
-
 }
 
 public class PredicateDemo {
@@ -118,8 +67,6 @@ public class PredicateDemo {
         for(Person male : youngmen) {
             System.out.println("Name : "+male.getName());
         }
-
-
     }
 }
 
