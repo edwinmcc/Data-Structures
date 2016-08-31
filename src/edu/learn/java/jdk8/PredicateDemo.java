@@ -6,6 +6,7 @@ import edu.learn.java.ds.common.Sex;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Created by egnanasigamony on 30/08/2016.
@@ -16,10 +17,11 @@ import java.util.List;
  * A Predicate is a function which receives an argument and returns a boolean.
  */
 
+/*
 @FunctionalInterface
 interface Predicate<T> {
     boolean test(T t);
-}
+}*/
 
 public class PredicateDemo {
 
@@ -55,7 +57,19 @@ public class PredicateDemo {
 
         Person ref=new Person("Ref", 25,Sex.MALE);
 
-        List<Person> men=filter(everybody,(p)->p.getSex()==Sex.MALE);
+
+        Predicate<Person> menPredicate=(Person p) -> p.getSex()==Sex.MALE;
+        Predicate<Person> nonMale = menPredicate.negate();
+
+        // Example for lamda Expression
+        // List<Person> men=filter(everybody,(p)->p.getSex()==Sex.MALE);
+
+        // Example for a FunctionalInterface
+        // List<Person> men=filter(everybody,menPredicate);
+
+        // Example for a FunctionalInterface Predicate combining.
+        // List<Person> nonMales=filter(everybody,nonMale);
+
         List<Person> youngmen=filter(filter(everybody,(p)->p.getSex()==Sex.MALE),(p)->p.getAge()==20);
 
         System.out.println("All Males ");

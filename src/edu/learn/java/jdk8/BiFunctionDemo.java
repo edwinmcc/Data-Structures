@@ -8,8 +8,6 @@ interface BiFunction<T,U,V> {
     V apply(T t, U u);
 }
 
-
-
 public class BiFunctionDemo {
 
 
