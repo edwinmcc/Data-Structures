@@ -65,7 +65,7 @@ public class PredicateDemo {
         // List<Person> men=filter(everybody,(p)->p.getSex()==Sex.MALE);
 
         // Example for a FunctionalInterface
-        // List<Person> men=filter(everybody,menPredicate);
+         List<Person> men=filter(everybody,menPredicate);
 
         // Example for a FunctionalInterface Predicate combining.
         // List<Person> nonMales=filter(everybody,nonMale);
