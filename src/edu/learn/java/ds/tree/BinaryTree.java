@@ -1,4 +1,4 @@
-package edu.learn.java.ds.list;
+package edu.learn.java.ds.tree;
 import edu.learn.java.ds.common.Node;
 
 public class BinaryTree {
