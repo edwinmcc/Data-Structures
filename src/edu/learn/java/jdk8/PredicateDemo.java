@@ -62,10 +62,10 @@ public class PredicateDemo {
         Predicate<Person> nonMale = menPredicate.negate();
 
         // Example for lamda Expression
-        // List<Person> men=filter(everybody,(p)->p.getSex()==Sex.MALE);
+        List<Person> men=filter(everybody,(p)->p.getSex()==Sex.MALE);
 
         // Example for a FunctionalInterface
-         List<Person> men=filter(everybody,menPredicate);
+         //List<Person> men=filter(everybody,menPredicate);
 
         // Example for a FunctionalInterface Predicate combining.
         // List<Person> nonMales=filter(everybody,nonMale);

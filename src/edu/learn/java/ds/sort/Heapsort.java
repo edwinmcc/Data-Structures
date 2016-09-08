@@ -14,6 +14,11 @@ public class Heapsort {
     }
 
     private void heapify(int i) {
+
+        // i - index of the parent element
+        // left - index of the left child
+        // right - index of the right child.
+
         int left=getLeftIndex(i);
         int right=getRightIndex(i);
         int max=i;
@@ -91,14 +96,45 @@ public class Heapsort {
 
     public static void main(final String[] args)
     {
-        Heapsort hs=new Heapsort();
-        hs.sort();
-        System.out.println("Max Element of Heap : "+hs.getMaxElementInHeap());
+        //Heapsort hs=new Heapsort();
+        //hs.sort();
+        //System.out.println("Max Element of Heap : "+hs.getMaxElementInHeap());
         //System.out.println("Extract Element of Heap : "+hs.extractMaxElementInHeap());
         //System.out.println("Extract Element of Heap : "+hs.extractMaxElementInHeap());
         //System.out.println("Extract Element of Heap : "+hs.extractMaxElementInHeap());
-        hs.heapIncreaseKey(2, 40);
-        hs.printArray();
+        //hs.heapIncreaseKey(2, 40);
+        //hs.printArray();
     }
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
