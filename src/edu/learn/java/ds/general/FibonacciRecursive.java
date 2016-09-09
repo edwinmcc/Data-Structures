@@ -46,6 +46,6 @@ public class FibonacciRecursive {
     public static void main(String ...args) {
         // 0,1,1,2,3,5,8,13, ...
         FibonacciRecursive fr=new FibonacciRecursive();
-        System.out.println("Fibonacci : "+fr.fibonacci(1000));
+        //System.out.println("Fibonacci : "+fr.fibonacci(1000));
     }
 }
