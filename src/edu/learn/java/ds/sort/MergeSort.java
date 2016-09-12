@@ -3,10 +3,13 @@ package edu.learn.java.ds.sort;
 import edu.learn.java.ds.common.Node;
 import edu.learn.java.ds.list.DoublyLinkedList;
 
+import java.util.Arrays;
+
+/*
 public class MergeSort {
 	/*
 	 * Incomplete
-	 */
+	 * /
 	
 	public void splitList(Node head, Node tail)
 	{
@@ -94,4 +97,67 @@ public class MergeSort {
 		
 	}
 	
+}
+*/
+
+
+public class MergeSort {
+
+    int[] array = { 9,8,7,6,5,4,3,2,1, 0};
+
+    public void merge(int low, int mid, int high) {
+
+        // Compute the size of array to split the main array.
+        int leftArraySize = mid - low + 1;
+        int rightArraySize = high - mid;
+
+        int[] leftArray = new int[leftArraySize];
+        int[] rightArray = new int[rightArraySize];
+
+        // Fill the array by copying elements from original array.
+        for(int i=0;i<leftArraySize;i++) {
+            leftArray[i] = array[i];
+        }
+
+        for(int i=0;i<rightArraySize;i++) {
+            rightArray[i] = array[mid+i];
+        }
+
+        leftArray[leftArraySize]=Integer.MAX_VALUE;
+        rightArray[high] = Integer.MAX_VALUE;
+
+        int i=0;
+        int j=0;
+
+        for(int k = low;k<high;k++) {
+            if(leftArray[i] < rightArray[j]) {
+                array[k] = leftArray[i];
+                i++;
+            }
+            else {
+                array[k] = rightArray[j];
+                j++;
+            }
+        }
+    }
+
+    public void mergeSort(int low, int high) {
+        if(low<high) {
+            int mid = (low + high) / 2;
+            mergeSort(low, mid);
+            mergeSort(mid + 1, high);
+            merge(low, mid, high);
+        }
+    }
+
+    public void printArray() {
+        System.out.println("Array : "+ Arrays.toString(array));
+    }
+
+    public static void main(String ...args) {
+        MergeSort ms=new MergeSort();
+        ms.printArray();
+        ms.mergeSort(0,ms.array.length);
+        ms.printArray();
+    }
 }
