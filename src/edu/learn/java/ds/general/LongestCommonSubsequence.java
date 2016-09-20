@@ -56,11 +56,13 @@ public class LongestCommonSubsequence {
 
     public void computeLength(MatrixEntry[][] matrix, String rows, String columns) {
 
+        // Populate 1st column of all rows with 0
         for(int i=0;i<=rows.length();i++) {
             System.out.println("Row : "+i);
             matrix[i][0]=new MatrixEntry();
             matrix[i][0].length=0;
         }
+        // Populate 1st row of all cols with 0
         for(int i=0;i<=columns.length();i++) {
             System.out.println("Column : "+i);
             matrix[0][i]=new MatrixEntry();

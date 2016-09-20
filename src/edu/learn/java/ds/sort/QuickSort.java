@@ -17,6 +17,7 @@ public class QuickSort {
         array[j] = temp;
     }
 
+
     private int partition(int low, int high) {
         int pivot=array[high];
         int i    =low-1;

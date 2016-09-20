@@ -93,13 +93,8 @@ public class MergeSort {
 		
 		ms.splitList(dll.getHead().right, dll.getTail().left);
 		//dll.traverseForward();
-		
-		
 	}
-	
-}
-*/
-
+} */
 
 public class MergeSort {
 
@@ -109,8 +104,8 @@ public class MergeSort {
 		//System.out.printf("merge(%d, %d, %d) \n",low,mid,high);
 
         // Compute the size of array to split the main array.
-        int leftArraySize = mid - low + 1;
-        int rightArraySize = high - mid;
+        int leftArraySize = mid - low + 1;  // Compute the left part.
+        int rightArraySize = high - mid;    // Compute the right part.
 
 		//System.out.printf("Left Half Size : %d Right Half size : %d ",leftArraySize,rightArraySize);
 
@@ -118,20 +113,24 @@ public class MergeSort {
         int[] rightArray = new int[rightArraySize +1];
 
         // Fill the array by copying elements from original array.
+        // Copy the left array part.
         for(int i=0;i<leftArraySize;i++) {
             leftArray[i] = array[low + i];
         }
 
+        // Copy the right array part.
         for(int i=0;i<rightArraySize;i++) {
             rightArray[i] = array[mid+i+1];
         }
 
+        // Fill the last element with Max Element.
         leftArray[leftArraySize]=Integer.MAX_VALUE;
         rightArray[rightArraySize] = Integer.MAX_VALUE;
 
         int i=0;
         int j=0;
 
+        // Iterate through the array low to high and compare elements.
         for(int k = low;k<=high;k++) {
         	//System.out.printf("Comparing leftArray[%d](%d)<=rightArray[%d](%d) \n",i,leftArray[i],j,rightArray[j]);
             if(leftArray[i] <= rightArray[j]) {
