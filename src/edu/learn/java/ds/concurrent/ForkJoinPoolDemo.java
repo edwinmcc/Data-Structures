@@ -1,5 +1,7 @@
 package edu.learn.java.ds.concurrent;
 
+import java.util.Random;
+import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
 
 /**
@@ -16,6 +18,7 @@ class FindMaxInSubset extends RecursiveTask<Integer> {
     private RecursiveTask<Integer> highRangeTask=null;
 
     public FindMaxInSubset(int[] array, int low, int high) {
+        this.array=array;
         this.low=low;
         this.high=high;
     }
@@ -23,13 +26,12 @@ class FindMaxInSubset extends RecursiveTask<Integer> {
     @Override
     protected Integer compute() {
         int maxValue=Integer.MIN_VALUE;
+        System.out.println("Range : low : "+low+" High : "+high);
         if((high-low)>10) {
             int mid=(high+low)/2;
             lowRangeTask = new FindMaxInSubset(array,low,mid);
             highRangeTask = new FindMaxInSubset(array,mid+1,high);
-
             invokeAll(lowRangeTask,highRangeTask);
-
             maxValue=Math.max(lowRangeTask.join(),highRangeTask.join());
         }
         else {
@@ -46,7 +48,18 @@ class FindMaxInSubset extends RecursiveTask<Integer> {
 }
 
 public class ForkJoinPoolDemo {
-
+    public static void main(String ...args) {
+        int[] array=new int[100];
+        Random random=new Random(10);
+        for(int i=0;i<100;i++) {
+            array[i]=random.nextInt(10000);
+            System.out.println(array[i]);
+        }
+        ForkJoinPool forkJoinPool=new ForkJoinPool();
+        FindMaxInSubset findMaxInSubset=new FindMaxInSubset(array,0,array.length-1);
+        Integer result=forkJoinPool.invoke(findMaxInSubset);
+        System.out.println("The max number in array is : "+result);
+    }
 }
 
 
