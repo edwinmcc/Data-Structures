@@ -27,8 +27,8 @@ public class StringPermutations {
 
     public static void main(String ...args) {
         String str="abcd";
-
         //StringPermutations.permuteString("",str,str.length()-4);
-        StringPermutations.allPermutations("",str);
+        StringPermutations.permuteString("",str,str.length()-3);
+        //StringPermutations.allPermutations("",str);
     }
 }
