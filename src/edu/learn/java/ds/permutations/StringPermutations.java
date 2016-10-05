@@ -7,7 +7,7 @@ public class StringPermutations {
 
     private static void permuteString(String prefix, String suffix, int r) {
         int n = suffix.length();
-        if (n == r) {
+        if (r == prefix.length()) {
             System.out.println(prefix);
         }
         else {
@@ -28,7 +28,7 @@ public class StringPermutations {
     public static void main(String ...args) {
         String str="abcd";
         //StringPermutations.permuteString("",str,str.length()-4);
-        StringPermutations.permuteString("",str,str.length()-3);
+        StringPermutations.permuteString("",str,3);
         //StringPermutations.allPermutations("",str);
     }
 }

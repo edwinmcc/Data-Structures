@@ -1,9 +1,6 @@
 package edu.learn.java.ds.general;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Created by egnanasigamony on 4/10/2016.
@@ -99,9 +96,12 @@ class Triangle {
     }
 }
 
+
+
 public class MaximumPerimeterTriangle {
 
     private List<Triangle> triangleList=new ArrayList<Triangle>();
+    private List<Triangle> maxPerimeterList=null;
     private List<Triangle> longMaxSideList=null;
     private List<Triangle> longMinSideList=null;
 
@@ -110,9 +110,26 @@ public class MaximumPerimeterTriangle {
     }
 
 
+    private void processMaxPerimeterTriangle(Triangle triangle) {
+        if(maxPerimeterList==null) {
+            maxPerimeterList=new ArrayList<>();
+            maxPerimeterList.add(triangle);
+        }
+        else {
+            Triangle triangle1=maxPerimeterList.get(0);
+            if(triangle.getPerimeter()>triangle1.getPerimeter()) {
+                maxPerimeterList.clear();
+                maxPerimeterList.add(triangle);
+            }
+            else if(triangle.getPerimeter()==triangle1.getPerimeter()) {
+                maxPerimeterList.add(triangle);
+            }
+        }
+    }
+
     private void processLongestMaximumSide(Triangle triangle) {
         if(longMaxSideList==null) {
-            longMaxSideList = new ArrayList<Triangle>();
+            longMaxSideList = new ArrayList<>();
             longMaxSideList.add(triangle);
         }
         else {
@@ -129,12 +146,12 @@ public class MaximumPerimeterTriangle {
 
     private void processLongestMinimumSide(Triangle triangle) {
         if(longMinSideList==null) {
-            longMinSideList = new ArrayList<Triangle>();
+            longMinSideList = new ArrayList<>();
             longMinSideList.add(triangle);
         }
         else {
             Triangle triangle1=longMinSideList.get(0);
-            if(triangle.getMinSide()>triangle1.getMinSide()) {
+            if(triangle.getMinSide()<triangle1.getMinSide()) {
                 longMinSideList.clear();
                 longMinSideList.add(triangle);
             }
@@ -146,9 +163,10 @@ public class MaximumPerimeterTriangle {
 
     private void makeTriangle(ArrayList<Integer> prefix, ArrayList<Integer> suffix) {
         int n=suffix.size();
-        if(suffix.size()==3) {
-            Triangle triangle=new Triangle(suffix.get(0),suffix.get(1),suffix.get(2));
+        if(prefix.size()==3) {
+            Triangle triangle=new Triangle(prefix.get(0),prefix.get(1),prefix.get(2));
             triangleList.add(triangle);
+            processMaxPerimeterTriangle(triangle);
             processLongestMaximumSide(triangle);
             processLongestMinimumSide(triangle);
         }
@@ -182,12 +200,28 @@ public class MaximumPerimeterTriangle {
             System.out.println("Triangle : "+triangleList.get(i));
         }
 
-        for(int i=0;i<mpt.longMaxSideList.size();i++) {
-            System.out.println("Triangle Max : "+mpt.longMaxSideList.get(i));
+        for(int i=0;i<mpt.maxPerimeterList.size();i++) {
+            System.out.println("Triangle Max Perimeter: "+mpt.maxPerimeterList.get(i));
         }
 
+        Iterator iterator=mpt.longMaxSideList.iterator();
+        for(int i=0;i<mpt.longMaxSideList.size();i++) {
+            System.out.println("Triangle Max : "+iterator.next());
+        }
+
+        Collections.sort(mpt.longMaxSideList,Comparator.comparing(Triangle::getPerimeter).thenComparing(Triangle::getMaxSide).reversed());
+
+        /*Collections.sort(mpt.longMaxSideList,Comparator.comparing(Triangle::getPerimeter).thenComparing(Triangle::getMaxSide).reversed()); */
+
+        for(int i=0;i<mpt.longMaxSideList.size();i++) {
+            System.out.println("Sorted :: Triangle Max : "+mpt.longMaxSideList.get(i));
+        }
+
+        Collections.sort(mpt.longMinSideList,Comparator.comparing(Triangle::getPerimeter).thenComparing(Triangle::getMinSide).reversed());
+
+        Iterator iterator1=mpt.longMinSideList.iterator();
         for(int i=0;i<mpt.longMinSideList.size();i++) {
-            System.out.println("Triangle Min : "+mpt.longMinSideList.get(i));
+            System.out.println("Triangle Min : "+iterator1.next());
         }
 
         /*Triangle t1=new Triangle(scanner.nextInt(),scanner.nextInt(),scanner.nextInt());
