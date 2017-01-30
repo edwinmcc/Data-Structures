@@ -25,7 +25,10 @@ public class CheckRotation {
         CheckRotation cr=new CheckRotation();
         String s1="apple";
         String s2="ppale";
+        String s3="pplea";
+
         System.out.println(" Is Rotation : "+cr.isRotation(s1,s2));
+        System.out.println(" Is Rotation : "+cr.isRotation(s1,s3));
     }
 
 }
