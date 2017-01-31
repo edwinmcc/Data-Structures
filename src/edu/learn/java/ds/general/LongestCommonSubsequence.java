@@ -62,6 +62,7 @@ public class LongestCommonSubsequence {
             matrix[i][0]=new MatrixEntry();
             matrix[i][0].length=0;
         }
+
         // Populate 1st row of all cols with 0
         for(int i=0;i<=columns.length();i++) {
             System.out.println("Column : "+i);
@@ -112,7 +113,27 @@ public class LongestCommonSubsequence {
             printLCS(matrix,r,c-1);
         }
     }
-
-
-
 }
+
+
+/*
+
+Steps
+1. Create a MatrixEntry with length & direction.
+Compute Length Method.
+2. Initialize the first row & column of array with 0 length & arrow Neutral
+3. if(char in row & column matches ) then arrow is DOWN, length is previous row,col val + 1
+4. if(prev row length > prev col length ) then  arrow is up current length is prev row length
+5. if (prev col length > prev row length  then arrow is left & current length is prev col length.
+
+PrintLCS Method.
+printLCS(Matrix[][], int row, int col)
+    if(matrix[row][col].direction==D)
+        printLCS(matrix, row-1,col-1);
+        print charAt row.
+    else if(matrix[row][col].direction==UP)
+        printLCS(matrix,row-1,col);
+    else if(matrix[row][col].direction==LEFT)
+
+
+ */

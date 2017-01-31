@@ -11,6 +11,8 @@ public class ModifiedFibonacci  {
     /*
      Tn+2 = Tn + (Tn+1)^2
 
+     tn = tn-2 + tn-2^2
+
 
      T1 = 0
      T2 = 1
@@ -30,6 +32,7 @@ public class ModifiedFibonacci  {
         }
         return fibonacci(t0,t1,n.subtract(BigInteger.valueOf(2))).add((fibonacci(t0,t1,n.subtract(BigInteger.ONE)).multiply(fibonacci(t0,t1,n.subtract(BigInteger.ONE)))));
     }
+
     public static void main(String ...args) {
         Scanner scanner = new Scanner(System.in);
         long  t0=scanner.nextLong();
