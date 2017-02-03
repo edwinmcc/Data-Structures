@@ -96,9 +96,16 @@ public class DoublyLinkedList {
 		dll.addNode(100);
 		
 		dll.traverseForward();
+		System.out.println("");
 		dll.traverseBackward();
+		System.out.println("");
+
 		dll.removeNode(70);
+		System.out.println("");
+
 		dll.traverseForward();
+		System.out.println("");
+
 		dll.traverseBackward();
 	}
 	
