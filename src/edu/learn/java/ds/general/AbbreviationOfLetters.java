@@ -45,7 +45,28 @@ We	have
 Because	we	were	able	to	successfully	convert	 	to	 ,	we	print	 YES 	on	a	new	line.
      */
 
+    /*
 
+    10
+        QOTLYiFECLAGIEWRQMWPSMWIOQSEBEOAuhuvo
+        QOTLYFECLAGIEWRQMWPSMWIOQSEBEOA
+        DRFNLZZVHLPZWIupjwdmqafmgkg
+        DRFNLZZVHLPZWI
+        SLIHGCUOXOPQYUNEPSYVDaEZKNEYZJUHFXUIL
+        SLIHCUOXOPQYNPSYVDEZKEZJUHFXUIHMGFP
+        RYASPJNZEFHEORROXWZFOVDWQCFGRZLWWXJVMTLGGnscruaa
+        RYASPJNZEFHEORROXWZFOVDWQCFGRZLWWXJVMTLGG
+        AVECtLVOXKPHIViTZViLKZCZAXZUZRYZDSTIHuCKNykdduywb
+        AVECLVOXKPHIVTZVLKZCZAXZUZRYZDSTIHCKN
+        wZPRSZwGIMUAKONSVAUBUgSVPBWRSTJZECxMTQXXA
+        ZPRSZGIMUAKONSVAUBUSVPBWRSTJZECMTQXXA
+        SYIHDDSMREKXOKRFDQAOZJQXRIDWXPYINFZCEFYyxu
+        SYIHDDSMREKXOKRFDQAOZJQXRIDWXPYINFZCEFY
+        EIZGAWWDCSJBBZPBYVNKRDEWVZnSSWZIw
+        EIZGAWWDCSJBBZPBYVNKRDEWVZSSWZI
+     */
+
+    /*
     public static boolean isStringFound(String s1, String s2) {
 
         boolean found=false;
@@ -60,6 +81,47 @@ Because	we	were	able	to	successfully	convert	 	to	 ,	we	print	 YES 	on	a	new	lin
             }
         }
         return found && s1.toUpperCase().contains(s2);
+    }*/
+
+    public static boolean isStringFound(String s1, String s2) {
+        int minLength=Math.min(s1.length(),s2.length());
+        //System.out.println("S1 : "+s1+" S2 : "+s2+" min length : "+minLength);
+
+        boolean match=false;
+        for(int i=0;i<s1.length();i++) {
+            int iPtr=i;
+            int matchCount=0;
+            int notMatchCount=0;
+            //System.out.println("i = "+i+" iPtr = "+iPtr);
+            for(int j=i,jPtr=0; ((iPtr<s1.length()) && (jPtr<minLength));) {
+                //System.out.println("i = "+i+" iPtr = "+iPtr+" jPtr= "+jPtr);
+                char s1Char=s1.charAt(iPtr);
+                char s2Char=s2.charAt(jPtr);
+                if(i+s2.length()>s1.length()) {
+                    break;
+                }
+                //System.out.println("Comparing Chars 1 : "+s1Char+" :: "+s2Char);
+                if(Character.isLowerCase(s1Char)) {
+                    s1Char = Character.toUpperCase(s1Char);
+                }
+                //System.out.println("Comparing Chars 2 : "+s1Char+" :: "+s2Char);
+                if(s1Char==s2Char) {
+                    jPtr++;
+                    matchCount++;
+                    iPtr++;
+                }
+                else {
+                    iPtr++;
+                }
+                //System.out.println("JPtr : "+jPtr+" matchCount : "+matchCount);
+            }
+            //System.out.println("Match Count : "+matchCount+" s2.length : "+s2.length());
+            if(matchCount==s2.length()) {
+                match=true;
+                break;
+            }
+        }
+        return match;
     }
 
     public static void main(String ...args) {

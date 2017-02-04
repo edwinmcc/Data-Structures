@@ -14,7 +14,5 @@ public class Node {
 		return value;
 	}
 
-	public boolean equals(Object o) {
 
-	}
 }
