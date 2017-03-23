@@ -81,6 +81,13 @@ public class PredicateDemo {
         for(Person male : youngmen) {
             System.out.println("Name : "+male.getName());
         }
+
+        List<Person> youngmen1=filter(everybody,(p)->p.getAge()==20);
+
+        System.out.println("All Young people");
+        for(Person male : youngmen1) {
+            System.out.println("Name : "+male.getName());
+        }
     }
 }
 
