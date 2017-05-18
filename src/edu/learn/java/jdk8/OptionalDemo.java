@@ -12,6 +12,7 @@ public class OptionalDemo {
         private String name;
         private String college;
         private HashMap<String,Integer> marks;
+
         public Student(String name,String college) {
             this.name=name;
             this.college=college;

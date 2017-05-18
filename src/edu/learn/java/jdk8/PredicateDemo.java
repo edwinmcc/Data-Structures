@@ -3,10 +3,12 @@ package edu.learn.java.jdk8;
 import edu.learn.java.ds.common.Person;
 import edu.learn.java.ds.common.Sex;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.*;
 
 /**
  * Created by egnanasigamony on 30/08/2016.
@@ -49,13 +51,23 @@ public class PredicateDemo {
     }
 
     public static void main(String ...args) {
-        List<Person> everybody=Arrays.asList(new Person("Aravind",21,Sex.MALE),
-                new Person("Amandeep", 21, Sex.FEMALE),
-                new Person("Renji", 20, Sex.FEMALE),
-                new Person("Silas",21, Sex.MALE),
-                new Person("Enoch", 20, Sex.MALE));
+        PredicateDemo pd=new PredicateDemo();
+        pd.learnGroupBy();
+    }
 
-        Person ref=new Person("Ref", 25,Sex.MALE);
+
+    public void learnGroupBy() {
+        List<Person> everybody= Arrays.asList(new Person("Aravind",21, Sex.MALE,6275.00,"TN","India"),
+                new Person("Amandeep", 21, Sex.FEMALE,3750.00,"PB","India"),
+                new Person("Renji", 20, Sex.FEMALE,4250.00,"TN","India"),
+                new Person("Silas",21, Sex.MALE,6500.00,"NV","USA"),
+                new Person("Brinda",20,Sex.FEMALE,4250.00,"FL","USA"),
+                new Person("Vanaja",20,Sex.FEMALE,4500.00,"FL","USA"),
+                new Person("Enoch", 20, Sex.MALE,6500.00,"BH","UK"),
+                new Person("Amali",20,Sex.FEMALE,5250.00,"BH","UK")
+        );
+
+        Person ref=new Person("Allwyn", 25,Sex.MALE,5500.00,"TN","India");
 
 
         Predicate<Person> menPredicate=(Person p) -> p.getSex()==Sex.MALE;
@@ -65,7 +77,7 @@ public class PredicateDemo {
         List<Person> men=filter(everybody,(p)->p.getSex()==Sex.MALE);
 
         // Example for a FunctionalInterface
-         //List<Person> men=filter(everybody,menPredicate);
+        //List<Person> men=filter(everybody,menPredicate);
 
         // Example for a FunctionalInterface Predicate combining.
         // List<Person> nonMales=filter(everybody,nonMale);
@@ -88,6 +100,21 @@ public class PredicateDemo {
         for(Person male : youngmen1) {
             System.out.println("Name : "+male.getName());
         }
+
+        //Map<String,List<Person>> people = everybody.stream().collect(Collectors.groupingBy(Person::getCountry));
+
+        Map<String,List<String>> people = everybody.stream().collect(groupingBy(Person::getCountry,mapping(Person::getCity,toList())));
+
+
+                /*
+        Set<String> keys=people.keySet();
+        for(String key : keys) {
+            List<String> pList=people.get(key);
+            System.out.println("List of people in : "+key);
+            for(String p : pList) {
+                System.out.println(p);
+            }
+        } */
     }
 }
 

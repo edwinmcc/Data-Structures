@@ -41,13 +41,18 @@ public class EqualsHashcodeTest {
 
     public static void main(String ...args) {
 
-        CopyOnWriteArrayList list;
+        CopyOnWriteArrayList list = new CopyOnWriteArrayList();
+
         HashSet<Student> students=new HashSet<Student>();
         Student s1=new Student("edwin");
         Student s2=new Student("edwin");
         students.add(s1);
         students.add(s2);
 
+        list.add(s1);
+        list.add(s2);
+
         System.out.println("Total Students : count : "+students.size());
+        System.out.println("Total Students : count : "+list.size());
     }
 }
