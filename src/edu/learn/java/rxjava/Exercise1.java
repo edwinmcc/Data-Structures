@@ -6,6 +6,10 @@ import rx.Subscriber;
 import rx.Subscription;
 import rx.schedulers.Schedulers;
 
+import java.util.ArrayList;
+import java.util.IntSummaryStatistics;
+import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 /**
@@ -74,10 +78,92 @@ public class Exercise1 {
 
         //Observable mergedObservable=Observable.merge(integerObservable,integerObservable).flatMap((entry)->Observable.just(entry)).subscribe(System.out::println));
         //Observable.merge(integerObservable,integerObservable).flatMap((entry)->Observable.just(entry)).subscribeOn(Schedulers.computation()).map((e)-> { System.out.println(Thread.currentThread().getName()+" 2222 : "+e); return e;}).subscribe(e1->{ System.out.println(Thread.currentThread().getName()+" : Number received : "+e1);});
-        integerObservable.flatMap((entry)->Observable.just(entry).subscribeOn(Schedulers.computation()).map((e)-> { try {Thread.currentThread().sleep(800); } catch(Exception ex) {} System.out.println(Thread.currentThread().getName()+" 2222 : "+e); return e;})).subscribe((e)->{ System.out.println(e); });
+        //integerObservable.flatMap((entry)->Observable.just(entry).subscribeOn(Schedulers.computation()).map((e)-> { try {Thread.currentThread().sleep(800); } catch(Exception ex) {} System.out.println(Thread.currentThread().getName()+" 2222 : "+e); return e;})).subscribe((e)->{ System.out.println(e); });
         //Subscription subscription=mergedObservable.subscribe(new EventIntegerSubscriber());
 
-        try { Thread.sleep(50000); } catch(Exception ex) {}
+        //try { Thread.sleep(50000); } catch(Exception ex) {}
+
+        /*Observable<Integer> neverObserve=never();
+        log("before never");
+        neverObserve.subscribe((s)->log(s.toString()));
+        log("after never");
+
+        Observable<Integer> emptyObserver=empty();
+        log("before empty");
+        emptyObserver.subscribe((s)->log(s.toString()), Throwable::printStackTrace, () -> { System.out.println("OnCompleted");} );
+        log("after empty");
+
+        Observable<Integer> rangeObservable=range(20,30).distinct();
+        log("before range");
+        rangeObservable.subscribe((s)->log(s.toString()), Throwable::printStackTrace, () -> { System.out.println("OnCompleted");});
+        rangeObservable.subscribe((s)->log(s.toString()), Throwable::printStackTrace, () -> { System.out.println("OnCompleted");});
+        log("after range"); */
+        sumofAllOddNumbers(1,10);
 
     }
+
+    private static  void sumofAllOddNumbers(int start, int end) {
+        if(end<=start) {
+            return;
+        }
+        //Observable.range(start,(end-start)).subscribe()
+        List<Integer> setOfIntegers = new ArrayList<>();
+
+        for(int i=start;i<=end;i++) {
+            setOfIntegers.add(i);
+        }
+
+        Predicate<Integer> oddPredicate=new Predicate<Integer>() {
+            @Override
+            public boolean test(Integer integer) {
+                return integer.intValue()%2==1;
+            }
+        };
+
+        Predicate<Integer> evenPredicate=new Predicate<Integer>() {
+            @Override
+            public boolean test(Integer integer) {
+                return integer.intValue()%2==0;
+            }
+        };
+
+        //int oddsum = setOfIntegers.stream().filter(oddPredicate).reduce(0,Integer::sum);
+        int oddsum = setOfIntegers.stream().filter(oddPredicate).mapToInt(Integer::intValue).sum();
+        int evensum = setOfIntegers.stream().filter(evenPredicate).reduce(0,Integer::sum);
+
+        System.out.println("The sum of all odd integers "+oddsum);
+        System.out.println("The sum of all even integers "+evensum);
+
+        IntSummaryStatistics sumStats=setOfIntegers.stream().filter(oddPredicate).mapToInt(Integer::intValue).summaryStatistics();
+        System.out.println(String.format("Min : %d - Max : %d, Average : %f, Count : %d Sum : %d",sumStats.getMin(),sumStats.getMax(),sumStats.getAverage(),sumStats.getCount(),sumStats.getSum()));
+        sumStats=setOfIntegers.stream().filter(evenPredicate).mapToInt(Integer::intValue).summaryStatistics();
+        System.out.println(String.format("Min : %d - Max : %d, Average : %f, Count : %d Sum : %d",sumStats.getMin(),sumStats.getMax(),sumStats.getAverage(),sumStats.getCount(),sumStats.getSum()));
+
+        oddsum = setOfIntegers.stream().filter(oddPredicate).reduce(0,(a,b)->a+b);
+        System.out.println("The sum of all odd integers "+oddsum);
+    }
+
+
+    static <T> Observable<T> never() {
+        return Observable.create(subscriber -> {
+
+        });
+    }
+
+    static <T> Observable<T> empty() {
+        return Observable.create(subscriber -> {
+            subscriber.onCompleted();
+        });
+    }
+
+    static Observable<Integer> range(Integer i1,Integer i2) {
+        return Observable.create(subscriber -> {
+            log("Creating range Observable");
+            for(int i=i1;i<i2;i++) {
+                subscriber.onNext(i);
+            }
+            subscriber.onCompleted();
+        });
+    }
+
 }
