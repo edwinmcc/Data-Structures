@@ -4,8 +4,11 @@ import rx.Observable;
 import rx.Scheduler;
 import rx.Subscriber;
 import rx.Subscription;
+import rx.functions.Action0;
 import rx.schedulers.Schedulers;
+import rx.subscriptions.Subscriptions;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.IntSummaryStatistics;
 import java.util.List;
@@ -98,9 +101,86 @@ public class Exercise1 {
         rangeObservable.subscribe((s)->log(s.toString()), Throwable::printStackTrace, () -> { System.out.println("OnCompleted");});
         rangeObservable.subscribe((s)->log(s.toString()), Throwable::printStackTrace, () -> { System.out.println("OnCompleted");});
         log("after range"); */
-        sumofAllOddNumbers(1,10);
+        //sumofAllOddNumbers(1,10);
+        createUnboundedObservable();
+
 
     }
+
+    private static void createUnboundedObservable() {
+
+        Subscriber<BigInteger> bigIntegerSubscriber = new Subscriber<BigInteger>() {
+
+            @Override
+            public void onStart() {
+                super.onStart();
+                System.out.println("onStart . . .");
+            }
+
+            @Override
+            public void onCompleted() {
+                System.out.println("onCompleted . . .");
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                System.out.println("onError . . .");
+            }
+
+            @Override
+            public void onNext(BigInteger bigInteger) {
+                System.out.println("onNext   "+Thread.currentThread().getName()+". . ."+bigInteger);
+            }
+        };
+
+        Observable<BigInteger> naturalNumbers=Observable.create(
+            new Observable.OnSubscribe<BigInteger>() {
+                @Override
+                public void call(Subscriber<? super BigInteger> subscriber) {
+                    Runnable r = new Runnable() {
+                        @Override
+                        public void run() {
+                            BigInteger n=BigInteger.ZERO;
+
+                            subscriber.onStart();
+                            while(!subscriber.isUnsubscribed()) {
+                                subscriber.onNext(n);
+                                n = n.add(BigInteger.ONE);
+                                try { Thread.currentThread().sleep(50); } catch (InterruptedException ie) {}
+                            }
+                            subscriber.onCompleted();
+                        }
+                    };
+                    Thread t=new Thread(r);
+                    t.setName("Observable-1");
+                    t.start();
+                    try { Thread.currentThread().sleep(100); } catch(InterruptedException ie ) {}
+                    subscriber.add(Subscriptions.create(new Action0() {
+                        @Override
+                        public void call() {
+                            System.out.println("Unsubscribed . . . . "+Thread.currentThread().getName());
+                            t.interrupt();
+                        }
+                    }));
+                }
+            }
+        );
+
+
+
+        naturalNumbers.subscribe(bigIntegerSubscriber);
+
+        bigIntegerSubscriber.add(Subscriptions.create(new Action0() {
+            @Override
+            public void call() {
+                Thread.currentThread().interrupt();
+            }
+        }));
+
+        try { Thread.sleep(1000); } catch(InterruptedException ie) {}
+        bigIntegerSubscriber.unsubscribe();
+    }
+
 
     private static  void sumofAllOddNumbers(int start, int end) {
         if(end<=start) {
