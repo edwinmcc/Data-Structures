@@ -1,5 +1,12 @@
 package edu.learn.java.rxjava;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.IntSummaryStatistics;
+import java.util.List;
+import java.util.function.Predicate;
+
+/*
 import rx.Observable;
 import rx.Scheduler;
 import rx.Subscriber;
@@ -17,7 +24,7 @@ import java.util.stream.Stream;
 
 /**
  * Created by egnanasigamony on 17/05/2017.
- */
+ * /
 public class Exercise1 {
 
     private static void log(String msg) {
@@ -43,7 +50,7 @@ public class Exercise1 {
 
         /*Observable.range(1,10).subscribe((i)-> {
             System.out.println(" Thread : "+Thread.currentThread().getName()+"  "+(i*i));
-        }); */
+        }); * /
 
         class EvenIntegerObservable implements Observable.OnSubscribe<Integer> {
             @Override
@@ -100,9 +107,9 @@ public class Exercise1 {
         log("before range");
         rangeObservable.subscribe((s)->log(s.toString()), Throwable::printStackTrace, () -> { System.out.println("OnCompleted");});
         rangeObservable.subscribe((s)->log(s.toString()), Throwable::printStackTrace, () -> { System.out.println("OnCompleted");});
-        log("after range"); */
+        log("after range"); * /
         //sumofAllOddNumbers(1,10);
-        createUnboundedObservable();
+        //createUnboundedObservable();
 
 
     }
@@ -247,3 +254,4 @@ public class Exercise1 {
     }
 
 }
+*/

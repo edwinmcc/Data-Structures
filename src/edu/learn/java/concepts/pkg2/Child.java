@@ -7,8 +7,9 @@ import edu.learn.java.concepts.pkg1.Base;
  */
 public class Child extends Base {
 
+    /*
     int callSuperIntAdd(int a,int b) {
         return super.packageAccessIntMethodReturnInt(a,b);
     }
-
+    */
 }

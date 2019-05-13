@@ -9,6 +9,6 @@ public class OverLoadDemo2 {
 
     public  static void main(String ...args) {
         Base b1=new Base();
-        b1.packageAccessIntMethodReturnInt(5,10);
+        //b1.packageAccessIntMethodReturnInt(5,10);
     }
 }
