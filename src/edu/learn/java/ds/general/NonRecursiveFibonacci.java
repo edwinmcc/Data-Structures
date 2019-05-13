@@ -6,10 +6,14 @@ package edu.learn.java.ds.general;
 public class NonRecursiveFibonacci {
 
     public long fibonacci(int n) {
-        if(n==0) {
+        if(n==0)
+        {
+            System.out.println(0);
             return 0;
         }
-        if(n<=2) {
+        if(n<=2)
+        {
+            System.out.println(1);
             return 1;
         }
         int a=1,b=1,c=0;
@@ -18,12 +22,13 @@ public class NonRecursiveFibonacci {
             b=a;
             a=c;
         }
+        System.out.println(c);
         return c;
     }
 
     public static void main(String ...args){
         NonRecursiveFibonacci nrf=new NonRecursiveFibonacci();
-        System.out.println("Value of Fib 7: "+nrf.fibonacci(20));
+        System.out.println("Value of Fib 7: "+nrf.fibonacci(10));
     }
 
 }
