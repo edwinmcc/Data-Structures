@@ -29,7 +29,8 @@ public class MatrixRotation {
             int last=size-layer-1;
             for(int i=first;i<last;i++) {
                 swapElements(layer,i,i,last);
-                //swapElements(layer,i,);
+                swapElements(layer,i, last, last - i + layer);
+                swapElements(layer,i, last - i + layer, layer);
             }
         }
     }
@@ -48,5 +49,15 @@ public class MatrixRotation {
                 value++;
             }
         }
+        MatrixRotation mr = new MatrixRotation();
+        m1.printMatrix();
+        mr.setMatrix(m1);
+        mr.rotateMatrix();
+        mr.rotateMatrix();
+        mr.rotateMatrix();
+        System.out.println("\n\n");
+        m1.printMatrix();
+
+
     }
 }

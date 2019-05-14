@@ -1,18 +1,29 @@
 package edu.learn.java.ds.permutations;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by edwin on 7/09/16.
  */
 public class StringPermutations {
 
-    private static void permuteString(String prefix, String suffix, int r) {
-        int n = suffix.length();
-        if (r == prefix.length()) {
-            System.out.println(prefix);
+    public static void permuteString(List<String> allOptions,String prefix, String suffix, int wordLength)
+    {
+        int suffixLength = suffix.length();
+        if (wordLength == prefix.length())
+        {
+            //System.out.println(prefix);
+            if(!allOptions.contains(prefix))
+            {
+                allOptions.add(prefix);
+            }
         }
-        else {
-            for (int i = 0; i < n; i++) {
-                permuteString(prefix + suffix.charAt(i), suffix.substring(0, i) + suffix.substring(i+1, n),r);
+        else
+        {
+            for (int i = 0; i < suffixLength; i++)
+            {
+                permuteString(allOptions, prefix + suffix.charAt(i), suffix.substring(0, i) + suffix.substring(i+1, suffixLength), wordLength);
             }
         }
     }
@@ -39,12 +50,33 @@ public class StringPermutations {
         }
     }
 
+    public static boolean isAnagram(String word, String checkWord)
+    {
+        List<String> allOptions = new ArrayList<>();
+        permuteString(allOptions,"",word,word.length());
+        if(allOptions.contains(checkWord))
+        {
+            return true;
+        }
+        return false;
+    }
 
     public static void main(String ...args) {
         String str="abcd";
         //StringPermutations.permuteString("",str,str.length()-4);
         //StringPermutations.permuteString("",str,2);
-        StringPermutations.allPermutations("",str,str.length());
+        //StringPermutations.allPermutations("",str,str.length());
         //StringPermutations.allRepetitivePermutations("",str,str.length()-1);
+
+        //List<String> allOptions = new ArrayList<>();
+        //StringPermutations.permuteString(allOptions,"",str,str.length());
+        /*
+        System.out.println("The length of array : "+allOptions.size());
+        for(String option : allOptions)
+        {
+            System.out.println(option);
+        }
+        */
+        System.out.println("abcd is an anagram of bcda : "+StringPermutations.isAnagram("abcd", "adcb"));
     }
 }

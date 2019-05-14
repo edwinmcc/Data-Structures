@@ -53,10 +53,27 @@ public class Matrix {
         }
     }
 
+    private String getSpace(int value)
+    {
+        if(value>=0 && value<10)
+        {
+            return "    ";
+        }
+        else if(value>=10 && value<=99)
+        {
+            return "   ";
+        }
+        else if(value>=100 && value<=999)
+        {
+            return "  ";
+        }
+        return " ";
+    }
+
     public void printMatrix() {
         for(int i=0;i<row;i++) {
             for(int j=0;j<col;j++) {
-                System.out.printf("%d ",data[i][j]);
+                System.out.printf("%d"+getSpace(data[i][j]),data[i][j]);
             }
             System.out.println();
         }
