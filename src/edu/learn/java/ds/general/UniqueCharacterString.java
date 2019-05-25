@@ -1,15 +1,10 @@
 package edu.learn.java.ds.general;
 
-import java.sql.Time;
 import java.util.Scanner;
 
 /**
  * Created by egnanasigamony on 20/09/2016.
  */
-
-interface UniqueCharactersFinder {
-    public boolean isCharactersUnique(String input);
-}
 
 class TimeSavingUniqueCharactersFinder implements  UniqueCharactersFinder {
 

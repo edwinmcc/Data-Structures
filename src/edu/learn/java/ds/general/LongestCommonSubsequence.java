@@ -1,6 +1,5 @@
 package edu.learn.java.ds.general;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.util.Scanner;
 
 /**
