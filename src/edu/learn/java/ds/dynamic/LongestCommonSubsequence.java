@@ -1,4 +1,4 @@
-package edu.learn.java.ds.general;
+package edu.learn.java.ds.dynamic;
 
 import java.util.Scanner;
 
