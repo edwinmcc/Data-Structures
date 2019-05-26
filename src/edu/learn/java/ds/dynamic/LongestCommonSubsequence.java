@@ -72,11 +72,13 @@ public class LongestCommonSubsequence {
         for(int i=1;i<=rows.length();i++) {
             for(int j=1;j<=columns.length();j++) {
                 matrix[i][j]=new MatrixEntry();
+                // If row and column character match, then take the low diagnol and add 1 to it.
                 if(rows.charAt(i-1)==columns.charAt(j-1)) {
                     matrix[i][j].length = matrix[i-1][j-1].length+1;
                     matrix[i][j].direction = Arrow.D;
                 }
                 else if(matrix[i-1][j].length>=matrix[i][j-1].length) {
+
                     matrix[i][j].length = matrix[i-1][j].length;
                     matrix[i][j].direction = Arrow.U;
                 }
@@ -89,8 +91,13 @@ public class LongestCommonSubsequence {
 
         for(int i=0;i<=rows.length();i++) {
             for (int j = 0; j<=columns.length(); j++) {
+
+                //System.out.printf("%d=",i,j);
+                System.out.printf("%d  ",matrix[i][j].length);
+                /*
                 System.out.printf("[%d][%d]=",i,j);
                 System.out.printf("%d,%s",matrix[i][j].length,matrix[i][j].direction);
+                */
             }
             System.out.println();
         }
